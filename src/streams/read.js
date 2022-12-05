@@ -1,12 +1,13 @@
 import { createReadStream } from 'fs'
 import {pipeline} from 'stream'
 import { fileURLToPath } from 'url'
-import {dirname} from 'path'
+import path, {dirname} from 'path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-const read = async (dirname, filename) => {
-  const readStream = createReadStream(`${__dirname}/${filename}`)
+const read = async (dir, filename) => {
+
+  const readStream = createReadStream(path.resolve(dir, filename))
 
   pipeline (
     readStream,
@@ -18,3 +19,5 @@ const read = async (dirname, filename) => {
 }
 
 await read(__dirname, 'files/fileToRead.txt')
+
+

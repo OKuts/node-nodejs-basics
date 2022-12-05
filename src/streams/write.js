@@ -1,11 +1,11 @@
 import {createWriteStream} from 'fs'
 import {pipeline} from 'stream'
 import {fileURLToPath} from 'url'
-import {dirname} from 'path'
+import path, {dirname} from 'path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const write = async (dirname, filename) => {
-  const writeStream = createWriteStream(`${__dirname}/${filename}`)
+const write = async (dir, filename) => {
+  const writeStream = createWriteStream(path.resolve(dir, filename))
 
   pipeline(
     process.stdin,
